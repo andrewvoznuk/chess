@@ -1,4 +1,18 @@
 const nodegames = require("nodegamesjs");
+
+const shortMap = {
+    Pawn: 'p',
+    Rook: 'r',
+    Knight: 'n',
+    Bishop: 'b',
+    Queen: 'q',
+    King: 'k',
+}
+const fileMap = {
+    a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7
+}
+
+
 const fs = require("fs")
 const board = fs.readFileSync("./board.png");
 const bb = fs.readFileSync("./pieces/bb.png");
@@ -36,54 +50,77 @@ nodegames.newGame(function (game) {
         console.log("Image with id: " + id + " loaded.")
         render()
     })
+
     function render() {
         console.log("Rendering game...")
-        // for (let i = 0; i< 4; i++) {
-        // for (let i = 0; i< 4; i++) {
-        //     for (let j = 0; j < 4; j++) {
-        //         game.rect(i * 200, j * 200, 100, 100, [255, 255, 255])
-        //         game.rect(i * 200 + 100, j * 200 + 100, 100, 100, [255, 255, 255])
-        //     }
-        // }
 
         game.image('board', 0, 0, 800, 800);
 
-        game.image('br', 0, 0, 100, 100);
-        game.image('bn', 100, 0, 100, 100);
-        game.image('bb', 200, 0, 100, 100);
-        game.image('bq', 300, 0, 100, 100);
-        game.image('bk', 400, 0, 100, 100);
-        game.image('bb', 500, 0, 100, 100);
-        game.image('bn', 600, 0, 100, 100);
-        game.image('br', 700, 0, 100, 100);
-        game.image('bp', 0, 100, 100, 100);
-        game.image('bp', 100, 100, 100, 100);
-        game.image('bp', 200, 100, 100, 100);
-        game.image('bp', 300, 100, 100, 100);
-        game.image('bp', 400, 100, 100, 100);
-        game.image('bp', 500, 100, 100, 100);
-        game.image('bp', 600, 100, 100, 100);
-        game.image('bp', 700, 100, 100, 100);
-
-        game.image('wr', 0, 700, 100, 100);
-        game.image('wn', 100, 700, 100, 100);
-        game.image('wb', 200, 700, 100, 100);
-        game.image('wq', 300, 700, 100, 100);
-        game.image('wk', 400, 700, 100, 100);
-        game.image('wb', 500, 700, 100, 100);
-        game.image('wn', 600, 700, 100, 100);
-        game.image('wr', 700, 700, 100, 100);
-        game.image('wp', 0, 600, 100, 100);
-        game.image('wp', 100, 600, 100, 100);
-        game.image('wp', 200, 600, 100, 100);
-        game.image('wp', 300, 600, 100, 100);
-        game.image('wp', 400, 600, 100, 100);
-        game.image('wp', 500, 600, 100, 100);
-        game.image('wp', 600, 600, 100, 100);
-        game.image('wp', 700, 600, 100, 100);
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                const piece = chess.board[i][j];
+                if ('undefined' === typeof piece) {
+                    continue;
+                }
+                if ('null' === piece) {
+                    continue;
+                }
+                const color = piece.isWhite ? 'w' : 'b';
+                const pe = shortMap[piece.constructor.name];
+                const flipJ = 7 - j;
+                game.image(color + pe, i * 100, flipJ * 100, 100, 100);
+            }
+        }
 
         game.renderFrame()
     }
 
     render();
 }, width, height);
+
+
+class Piece {
+    isWhite;
+
+    constructor(isWhite) {
+        this.isWhite = isWhite;
+    }
+}
+
+class Pawn extends Piece {
+}
+
+class Rook extends Piece {
+}
+
+class Knight extends Piece {
+}
+
+class Bishop extends Piece {
+}
+
+class Queen extends Piece {
+}
+
+class King extends Piece {
+}
+
+
+class Chess {
+    board = new Array(8);
+
+    constructor() {
+        for (let i = 0; i < 8; i++) {
+            this.board[i] = new Array(8);
+        }
+        this.placePiece('e2', new Pawn(true));
+    }
+
+    placePiece(square, piece) {
+        const file = fileMap[square[0]];
+        const line = square[1] - 1;
+        this.board[file][line] = piece
+    }
+}
+
+const chess = new Chess();
