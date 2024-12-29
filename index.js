@@ -39,6 +39,7 @@ nodegames.newGame(function (game) {
     function render() {
         console.log("Rendering game...")
         // for (let i = 0; i< 4; i++) {
+        // for (let i = 0; i< 4; i++) {
         //     for (let j = 0; j < 4; j++) {
         //         game.rect(i * 200, j * 200, 100, 100, [255, 255, 255])
         //         game.rect(i * 200 + 100, j * 200 + 100, 100, 100, [255, 255, 255])
@@ -50,10 +51,10 @@ nodegames.newGame(function (game) {
         game.image('br', 0, 0, 100, 100);
         game.image('bn', 100, 0, 100, 100);
         game.image('bb', 200, 0, 100, 100);
-        game.image('bk', 300, 0, 100, 100);
-        game.image('bq', 600, 0, 100, 100);
-        game.image('bb', 400, 0, 100, 100);
-        game.image('bn', 500, 0, 100, 100);
+        game.image('bq', 300, 0, 100, 100);
+        game.image('bk', 400, 0, 100, 100);
+        game.image('bb', 500, 0, 100, 100);
+        game.image('bn', 600, 0, 100, 100);
         game.image('br', 700, 0, 100, 100);
         game.image('bp', 0, 100, 100, 100);
         game.image('bp', 100, 100, 100, 100);
@@ -65,6 +66,21 @@ nodegames.newGame(function (game) {
         game.image('bp', 700, 100, 100, 100);
 
         game.image('wr', 0, 700, 100, 100);
+        game.image('wn', 100, 700, 100, 100);
+        game.image('wb', 200, 700, 100, 100);
+        game.image('wq', 300, 700, 100, 100);
+        game.image('wk', 400, 700, 100, 100);
+        game.image('wb', 500, 700, 100, 100);
+        game.image('wn', 600, 700, 100, 100);
+        game.image('wr', 700, 700, 100, 100);
+        game.image('wp', 0, 600, 100, 100);
+        game.image('wp', 100, 600, 100, 100);
+        game.image('wp', 200, 600, 100, 100);
+        game.image('wp', 300, 600, 100, 100);
+        game.image('wp', 400, 600, 100, 100);
+        game.image('wp', 500, 600, 100, 100);
+        game.image('wp', 600, 600, 100, 100);
+        game.image('wp', 700, 600, 100, 100);
 
         game.renderFrame()
     }
