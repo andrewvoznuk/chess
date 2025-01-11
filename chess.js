@@ -105,6 +105,8 @@ class Chess {
 
         console.log(pieceClass);
         switch (pieceClass) {
+            case 'Queen':
+                return this.getAvailableMovesForQueen(square);
             case 'Rook':
                 return this.getAvailableMovesForRook(square);
             case 'Bishop':
@@ -208,6 +210,13 @@ class Chess {
         }
 
         return availableMoves;
+    }
+
+    getAvailableMovesForQueen(square) {
+        const r = this.getAvailableMovesForRook(square);
+        const b = this.getAvailableMovesForBishop(square);
+
+        return r.concat(b)
     }
 }
 
