@@ -164,6 +164,7 @@ class Chess {
                 file++;
             }
         }
+        this.isWhiteToMove = fenParts[1].toLowerCase() === 'w';
     }
 
     placePiece(square, piece) {
