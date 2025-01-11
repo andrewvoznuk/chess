@@ -117,7 +117,43 @@ class Chess {
         for (let i = 0; i < 8; i++) {
             this.board[i] = new Array(8);
         }
+        this.placePiece('a7', new Pawn());
+        this.placePiece('e7', new Pawn());
+        this.placePiece('b7', new Pawn());
+        this.placePiece('c7', new Pawn());
+        this.placePiece('d7', new Pawn());
+        this.placePiece('f7', new Pawn());
+        this.placePiece('g7', new Pawn());
+        this.placePiece('h7', new Pawn());
+
+        this.placePiece('a8', new Rook());
+        this.placePiece('e8', new King());
+        this.placePiece('b8', new Knight());
+        this.placePiece('c8', new Bishop());
+        this.placePiece('d8', new Queen());
+        this.placePiece('f8', new Bishop());
+        this.placePiece('g8', new Knight());
+        this.placePiece('h8', new Rook());
+
+
+        this.placePiece('a2', new Pawn(true));
         this.placePiece('e2', new Pawn(true));
+        this.placePiece('b2', new Pawn(true));
+        this.placePiece('c2', new Pawn(true));
+        this.placePiece('d2', new Pawn(true));
+        this.placePiece('f2', new Pawn(true));
+        this.placePiece('g2', new Pawn(true));
+        this.placePiece('h2', new Pawn(true));
+
+
+        this.placePiece('a1', new Rook(true));
+        this.placePiece('e1', new King(true));
+        this.placePiece('b1', new Knight(true));
+        this.placePiece('c1', new Bishop(true));
+        this.placePiece('d1', new Queen(true));
+        this.placePiece('f1', new Bishop(true));
+        this.placePiece('g1', new Knight(true));
+        this.placePiece('h1', new Rook(true));
     }
 
     placePiece(square, piece) {
