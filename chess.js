@@ -107,6 +107,8 @@ class Chess {
         switch (pieceClass) {
             case 'Rook':
                 return this.getAvailableMovesForRook(square);
+            case 'Bishop':
+                return this.getAvailableMovesForBishop(square);
         }
 
 
@@ -142,6 +144,42 @@ class Chess {
         for (let i = y + 1; i < 8; i++) {
             if (!this.board[x][i]) {
                 availableMoves.push([x, i]);
+            } else {
+                break;
+            }
+        }
+
+        return availableMoves;
+    }
+
+    getAvailableMovesForBishop(square) {
+        const availableMoves = [];
+        const x = square[0], y = square[1];
+
+        for (let i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
+            if (!this.board[i][j]) {
+                availableMoves.push([i, j]);
+            } else {
+                break;
+            }
+        }
+        for (let i = x + 1, j = y - 1; i < 8 && j >= 0; i++, j--) {
+            if (!this.board[i][j]) {
+                availableMoves.push([i, j]);
+            } else {
+                break;
+            }
+        }
+        for (let i = x + 1, j = y + 1; i < 8 && j < 8; i++, j++) {
+            if (!this.board[i][j]) {
+                availableMoves.push([i, j]);
+            } else {
+                break;
+            }
+        }
+        for (let i = x - 1, j = y + 1; i >= 0 && j < 8; i--, j++) {
+            if (!this.board[i][j]) {
+                availableMoves.push([i, j]);
             } else {
                 break;
             }
