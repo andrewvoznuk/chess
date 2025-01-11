@@ -113,54 +113,71 @@ class King extends Piece {
 class Chess {
     board = new Array(8);
 
-    constructor() {
+    constructor(fen) {
         for (let i = 0; i < 8; i++) {
             this.board[i] = new Array(8);
         }
-        this.placePiece('a7', new Pawn());
-        this.placePiece('e7', new Pawn());
-        this.placePiece('b7', new Pawn());
-        this.placePiece('c7', new Pawn());
-        this.placePiece('d7', new Pawn());
-        this.placePiece('f7', new Pawn());
-        this.placePiece('g7', new Pawn());
-        this.placePiece('h7', new Pawn());
+        const fenParts = fen.split(' ');
+        const fenPieces = fenParts[0];
+        let rank = 0, file = 0;
+        for (const char of fenPieces) {
+            let piece;
+            const isWhite = (char === char.toUpperCase());
+            switch (char.toLowerCase()) {
+                case 'r':
+                    piece = new Rook(isWhite);
+                    break;
+                case 'n':
+                    piece = new Knight(isWhite);
+                    break;
+                case 'b':
+                    piece = new Bishop(isWhite);
+                    break;
+                case 'q':
+                    piece = new Queen(isWhite);
+                    break;
+                case 'k':
+                    piece = new King(isWhite);
+                    break;
+                case 'p':
+                    piece = new Pawn(isWhite);
+                    break;
+                case '/':
+                    file = 0;
+                    rank++;
+                    break;
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    file += parseInt(char);
+                    break;
+            }
 
-        this.placePiece('a8', new Rook());
-        this.placePiece('e8', new King());
-        this.placePiece('b8', new Knight());
-        this.placePiece('c8', new Bishop());
-        this.placePiece('d8', new Queen());
-        this.placePiece('f8', new Bishop());
-        this.placePiece('g8', new Knight());
-        this.placePiece('h8', new Rook());
-
-
-        this.placePiece('a2', new Pawn(true));
-        this.placePiece('e2', new Pawn(true));
-        this.placePiece('b2', new Pawn(true));
-        this.placePiece('c2', new Pawn(true));
-        this.placePiece('d2', new Pawn(true));
-        this.placePiece('f2', new Pawn(true));
-        this.placePiece('g2', new Pawn(true));
-        this.placePiece('h2', new Pawn(true));
-
-
-        this.placePiece('a1', new Rook(true));
-        this.placePiece('e1', new King(true));
-        this.placePiece('b1', new Knight(true));
-        this.placePiece('c1', new Bishop(true));
-        this.placePiece('d1', new Queen(true));
-        this.placePiece('f1', new Bishop(true));
-        this.placePiece('g1', new Knight(true));
-        this.placePiece('h1', new Rook(true));
+            if (piece) {
+                this.placePiece({file: file, rank: 7 - rank}, piece);
+                file++;
+            }
+        }
     }
 
     placePiece(square, piece) {
-        const file = fileMap[square[0]];
-        const line = square[1] - 1;
-        this.board[file][line] = piece
+        let file, rank;
+        if (typeof square === 'string' || square instanceof String) {
+            file = fileMap[square[0]];
+            rank = square[1] - 1;
+        } else {
+            file = square.file;
+            rank = square.rank;
+        }
+        this.board[file][rank] = piece
     }
 }
 
-const chess = new Chess();
+const initialPosition = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
+const chess = new Chess(initialPosition);
