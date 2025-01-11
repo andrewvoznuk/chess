@@ -109,6 +109,8 @@ class Chess {
                 return this.getAvailableMovesForRook(square);
             case 'Bishop':
                 return this.getAvailableMovesForBishop(square);
+            case 'Knight':
+                return this.getAvailableMovesForKnight(square);
         }
 
 
@@ -182,6 +184,26 @@ class Chess {
                 availableMoves.push([i, j]);
             } else {
                 break;
+            }
+        }
+
+        return availableMoves;
+    }
+
+    getAvailableMovesForKnight(square) {
+        const availableMoves = [];
+        const x = square[0], y = square[1];
+
+        for (let xDirection = 0; xDirection < 2; xDirection++) {
+            for (let yDirection = 0; yDirection < 2; yDirection++) {
+                const xMultiplier = xDirection ? 1 : -1;
+                const yMultiplier = yDirection ? 1 : -1;
+                if (!this.board[x + 2 * xMultiplier][y + 1 * yMultiplier]) {
+                    availableMoves.push([x + 2 * xMultiplier, y + 1 * yMultiplier]);
+                }
+                if (!this.board[x + 1 * xMultiplier][y + 2 * yMultiplier]) {
+                    availableMoves.push([x + 1 * xMultiplier, y + 2 * yMultiplier]);
+                }
             }
         }
 

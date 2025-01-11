@@ -97,5 +97,5 @@ nodegames.newGame(function (game) {
 }, width, height);
 
 // const initialPosition = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
-const initialPosition = "3R4/8/8/3RB3/8/8/8/8 w KQkq - 1 2";
+const initialPosition = "3R4/8/8/2QRB3/4N3/8/8/8 w KQkq - 1 2";
 const chess = new Chess(initialPosition);
