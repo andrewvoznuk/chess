@@ -75,7 +75,7 @@ class Chess {
             }
 
             if (piece) {
-                this.placePiece({file: file, rank: 7 - rank}, piece);
+                this.placePiece({file: file, rank: rank}, piece);
                 file++;
             }
         }
@@ -92,6 +92,62 @@ class Chess {
             rank = square.rank;
         }
         this.board[file][rank] = piece
+    }
+
+    getAvailableMovesForPiece(square) {
+        const availableMoves = [];
+
+        const piece = this.board[square[0]][square[1]];
+        if (!piece) {
+            return availableMoves;
+        }
+        const pieceClass = piece.constructor.name;
+
+        console.log(pieceClass);
+        switch (pieceClass) {
+            case 'Rook':
+                return this.getAvailableMovesForRook(square);
+        }
+
+
+        return availableMoves;
+    }
+
+    getAvailableMovesForRook(square) {
+        const availableMoves = [];
+
+        const x = square[0], y = square[1];
+
+        for (let i = x - 1; i >= 0; i--) {
+            if (!this.board[i][y]) {
+                availableMoves.push([i, y]);
+            } else {
+                break;
+            }
+        }
+        for (let i = x + 1; i < 8; i++) {
+            if (!this.board[i][y]) {
+                availableMoves.push([i, y]);
+            } else {
+                break;
+            }
+        }
+        for (let i = y - 1; i >= 0; i--) {
+            if (!this.board[x][i]) {
+                availableMoves.push([x, i]);
+            } else {
+                break;
+            }
+        }
+        for (let i = y + 1; i < 8; i++) {
+            if (!this.board[x][i]) {
+                availableMoves.push([x, i]);
+            } else {
+                break;
+            }
+        }
+
+        return availableMoves;
     }
 }
 

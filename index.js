@@ -64,12 +64,7 @@ nodegames.newGame(function (game) {
         const x = Math.floor(event.x / 100); //x position of mouse click
         const y = Math.floor(event.y / 100); //y position of mouse click
         console.log("Mouse button pressed: " + button + " at " + x + ", " + y)
-        possibleMoves = [];
-        possibleMoves.push([x, y + 1])
-        possibleMoves.push([x, y - 1])
-        possibleMoves.push([x - 1, y])
-        possibleMoves.push([x + 1, y])
-
+        possibleMoves = chess.getAvailableMovesForPiece([x,y])
         render()
     })
 
@@ -86,7 +81,7 @@ nodegames.newGame(function (game) {
                 }
                 const color = piece.isWhite ? 'w' : 'b';
                 const pe = shortMap[piece.constructor.name];
-                const flipJ = 7 - j;
+                const flipJ = j;
                 game.image(color + pe, i * 100, flipJ * 100, 100, 100);
             }
         }
@@ -102,5 +97,5 @@ nodegames.newGame(function (game) {
 }, width, height);
 
 // const initialPosition = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
-const initialPosition = "8/8/8/3R4/8/8/8/8 w KQkq - 1 2";
+const initialPosition = "3R4/8/8/3R4/8/8/8/8 w KQkq - 1 2";
 const chess = new Chess(initialPosition);
