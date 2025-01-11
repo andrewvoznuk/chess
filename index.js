@@ -47,7 +47,6 @@ nodegames.newGame(function (game) {
 
     game.on("imageload", function (id) {
         //"id" is the loaded image id
-        console.log("Image with id: " + id + " loaded.")
         render()
     })
     game.setWindowName("My Chess");
@@ -56,8 +55,6 @@ nodegames.newGame(function (game) {
     });
 
     function render() {
-        console.log("Rendering game...")
-
         game.image('board', 0, 0, 800, 800);
 
         for (let i = 0; i < 8; i++) {
