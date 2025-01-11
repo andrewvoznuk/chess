@@ -50,6 +50,10 @@ nodegames.newGame(function (game) {
         console.log("Image with id: " + id + " loaded.")
         render()
     })
+    game.setWindowName("My Chess");
+    game.on('close', function () {
+        process.exit(0);
+    });
 
     function render() {
         console.log("Rendering game...")
