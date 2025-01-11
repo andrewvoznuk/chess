@@ -53,10 +53,25 @@ nodegames.newGame(function (game) {
     game.on('close', function () {
         process.exit(0);
     });
+    let possibleMoves = [];
+
+    game.on("mouseclick", function (event) {
+        //"event" object contains
+        const button = event.button; //Mouse button (scrollwheel, left, right, side1, side2)
+        const x = Math.floor(event.x / 100); //x position of mouse click
+        const y = Math.floor(event.y / 100); //y position of mouse click
+        console.log("Mouse button pressed: " + button + " at " + x + ", " + y)
+        possibleMoves = [];
+        possibleMoves.push([x, y + 1])
+        possibleMoves.push([x, y - 1])
+        possibleMoves.push([x - 1, y])
+        possibleMoves.push([x + 1, y])
+
+        render()
+    })
 
     function render() {
         game.image('board', 0, 0, 800, 800);
-
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
                 const piece = chess.board[i][j];
@@ -71,6 +86,10 @@ nodegames.newGame(function (game) {
                 const flipJ = 7 - j;
                 game.image(color + pe, i * 100, flipJ * 100, 100, 100);
             }
+        }
+
+        for (const possibleMove of possibleMoves) {
+            game.circle(possibleMove[0] * 100 + 50, possibleMove[1] * 100 + 50, 20, [0, 200, 0]);
         }
 
         game.renderFrame()
@@ -177,5 +196,6 @@ class Chess {
     }
 }
 
-const initialPosition = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
+// const initialPosition = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
+const initialPosition = "8/8/8/3R4/8/8/8/8 w KQkq - 1 2";
 const chess = new Chess(initialPosition);
