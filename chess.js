@@ -80,6 +80,14 @@ class Chess {
             }
         }
         this.isWhiteToMove = fenParts[1].toLowerCase() === 'w';
+        const castlings = fenParts[2];
+        this.cOO = {};
+        this.cOOO = {};
+
+        this.cOO[1] = castlings.includes('K');
+        this.cOOO[1] = castlings.includes('Q');
+        this.cOO[0] = castlings.includes('k');
+        this.cOOO[0] = castlings.includes('q');
     }
 
     placePiece(square, piece) {
@@ -227,6 +235,7 @@ class Chess {
     getAvailableMovesForKing(square) {
         const availableMoves = [];
         const x = square[0], y = square[1];
+        const piece = this.board[x][y];
 
         for (let i = Math.max(x - 1, 0); i <= Math.min(x + 1, 7); i++) {
             for (let j = Math.max(y - 1, 0); j <= Math.min(y + 1, 7); j++) {
@@ -234,6 +243,13 @@ class Chess {
                     availableMoves.push([i, j]);
                 }
             }
+        }
+
+        if (this.cOO[+piece.isWhite] && !this.board[5][y] && !this.board[6][y]) {
+            availableMoves.push([6, y]);
+        }
+        if (this.cOOO[+piece.isWhite] && !this.board[1][y] && !this.board[2][y] && !this.board[3][y]) {
+            availableMoves.push([2, y]);
         }
 
         return availableMoves;

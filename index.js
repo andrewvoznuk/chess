@@ -96,6 +96,7 @@ nodegames.newGame(function (game) {
     render();
 }, width, height);
 
-// const initialPosition = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
-const initialPosition = "K3RK1K/8/8/2QRB3/4N3/8/8/K6K w KQkq - 1 2";
+// const initialPosition = "rnbqkbnr/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 1 2";
+const initialPosition = "r3k2r/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/R3K2R b KQkq - 1 2";
+// const initialPosition = "K3RK1K/8/8/2QRB3/4N3/8/8/K6K w KQkq - 1 2";
 const chess = new Chess(initialPosition);
