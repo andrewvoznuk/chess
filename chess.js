@@ -301,10 +301,10 @@ class Chess {
         const direction = piece.isWhite ? -1 : 1;
 
         // en passant
-        if (this.enPassant && this.enPassant[0] === x - 1 && this.board[x - 1][y].isWhite !== piece.isWhite) {
+        if (this.enPassant && this.enPassant[0] === x - 1 && this.board[x - 1][y] && this.board[x - 1][y].isWhite !== piece.isWhite) {
             availableMoves.push([x - 1, y + direction]);
         }
-        if (this.enPassant && this.enPassant[0] === x + 1 && this.board[x + 1][y].isWhite !== piece.isWhite) {
+        if (this.enPassant && this.enPassant[0] === x + 1 && this.board[x + 1][y] && this.board[x + 1][y].isWhite !== piece.isWhite) {
             availableMoves.push([x + 1, y + direction]);
         }
         // regular capture
