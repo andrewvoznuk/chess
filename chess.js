@@ -233,15 +233,16 @@ class Chess {
     getAvailableMovesForKnight(square) {
         const availableMoves = [];
         const x = square[0], y = square[1];
+        const isWhite = this.board[x][y].isWhite;
 
         for (let xDirection = 0; xDirection < 2; xDirection++) {
             for (let yDirection = 0; yDirection < 2; yDirection++) {
                 const xMultiplier = xDirection ? 1 : -1;
                 const yMultiplier = yDirection ? 1 : -1;
-                if ((x + 2 * xMultiplier) >= 0 && (x + 2 * xMultiplier) < 8 && (y + 1 * yMultiplier) >= 0 && (y + 1 * yMultiplier) < 8 && !this.board[x + 2 * xMultiplier][y + 1 * yMultiplier]) {
+                if ((x + 2 * xMultiplier) >= 0 && (x + 2 * xMultiplier) < 8 && (y + 1 * yMultiplier) >= 0 && (y + 1 * yMultiplier) < 8 && (!this.board[x + 2 * xMultiplier][y + 1 * yMultiplier] || isWhite !== this.board[x + 2 * xMultiplier][y + 1 * yMultiplier].isWhite)) {
                     availableMoves.push([x + 2 * xMultiplier, y + 1 * yMultiplier]);
                 }
-                if ((x + 1 * xMultiplier) >= 0 && (x + 1 * xMultiplier) < 8 && (y + 2 * yMultiplier) >= 0 && (y + 2 * yMultiplier) < 8 && !this.board[x + 1 * xMultiplier][y + 2 * yMultiplier]) {
+                if ((x + 1 * xMultiplier) >= 0 && (x + 1 * xMultiplier) < 8 && (y + 2 * yMultiplier) >= 0 && (y + 2 * yMultiplier) < 8 && (!this.board[x + 1 * xMultiplier][y + 2 * yMultiplier] || isWhite !== this.board[x + 1 * xMultiplier][y + 2 * yMultiplier].isWhite)) {
                     availableMoves.push([x + 1 * xMultiplier, y + 2 * yMultiplier]);
                 }
             }

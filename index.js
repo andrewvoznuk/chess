@@ -87,7 +87,7 @@ nodegames.newGame(function (game) {
         }
 
         for (const possibleMove of possibleMoves) {
-            game.circle(possibleMove[0] * 100 + 50, possibleMove[1] * 100 + 50, 20, [0, 200, 0]);
+            game.circle(possibleMove[0] * 100 + 50, possibleMove[1] * 100 + 50, 15, [0, 200, 0]);
         }
 
         game.renderFrame()
@@ -97,6 +97,7 @@ nodegames.newGame(function (game) {
 }, width, height);
 
 // const initialPosition = "rnbqkbnr/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 1 2";
-const initialPosition = "r3k2r/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/R3K2R b KQkq - 1 2";
+// const initialPosition = "r3k2r/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/R3K2R b KQkq - 1 2";
+const initialPosition = "8/3R1B2/8/1Q1b4/8/2N5/8/8 w KQkq - 1 2";
 // const initialPosition = "K3RK1K/8/8/2QRB3/4N3/8/8/K6K w KQkq - 1 2";
 const chess = new Chess(initialPosition);
