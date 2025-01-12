@@ -134,34 +134,46 @@ class Chess {
 
     getAvailableMovesForRook(square) {
         const availableMoves = [];
-
         const x = square[0], y = square[1];
+        const isWhite = this.board[x][y].isWhite;
 
         for (let i = x - 1; i >= 0; i--) {
-            if (!this.board[i][y]) {
-                availableMoves.push([i, y]);
-            } else {
+            const targetX = i, targetY = y;
+            const move = this.canMove(isWhite, targetX, targetY);
+            if (move.can) {
+                availableMoves.push([targetX, targetY]);
+            }
+            if (!move.can || move.type === 'capture') {
                 break;
             }
         }
         for (let i = x + 1; i < 8; i++) {
-            if (!this.board[i][y]) {
-                availableMoves.push([i, y]);
-            } else {
+            const targetX = i, targetY = y;
+            const move = this.canMove(isWhite, targetX, targetY);
+            if (move.can) {
+                availableMoves.push([targetX, targetY]);
+            }
+            if (!move.can || move.type === 'capture') {
                 break;
             }
         }
         for (let i = y - 1; i >= 0; i--) {
-            if (!this.board[x][i]) {
-                availableMoves.push([x, i]);
-            } else {
+            const targetX = x, targetY = i;
+            const move = this.canMove(isWhite, targetX, targetY);
+            if (move.can) {
+                availableMoves.push([targetX, targetY]);
+            }
+            if (!move.can || move.type === 'capture') {
                 break;
             }
         }
         for (let i = y + 1; i < 8; i++) {
-            if (!this.board[x][i]) {
-                availableMoves.push([x, i]);
-            } else {
+            const targetX = x, targetY = i;
+            const move = this.canMove(isWhite, targetX, targetY);
+            if (move.can) {
+                availableMoves.push([targetX, targetY]);
+            }
+            if (!move.can || move.type === 'capture') {
                 break;
             }
         }
@@ -172,32 +184,45 @@ class Chess {
     getAvailableMovesForBishop(square) {
         const availableMoves = [];
         const x = square[0], y = square[1];
+        const isWhite = this.board[x][y].isWhite;
 
         for (let i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
-            if (!this.board[i][j]) {
-                availableMoves.push([i, j]);
-            } else {
+            const targetX = i, targetY = j;
+            const move = this.canMove(isWhite, targetX, targetY);
+            if (move.can) {
+                availableMoves.push([targetX, targetY]);
+            }
+            if (!move.can || move.type === 'capture') {
                 break;
             }
         }
         for (let i = x + 1, j = y - 1; i < 8 && j >= 0; i++, j--) {
-            if (!this.board[i][j]) {
-                availableMoves.push([i, j]);
-            } else {
+            const targetX = i, targetY = j;
+            const move = this.canMove(isWhite, targetX, targetY);
+            if (move.can) {
+                availableMoves.push([targetX, targetY]);
+            }
+            if (!move.can || move.type === 'capture') {
                 break;
             }
         }
         for (let i = x + 1, j = y + 1; i < 8 && j < 8; i++, j++) {
-            if (!this.board[i][j]) {
-                availableMoves.push([i, j]);
-            } else {
+            const targetX = i, targetY = j;
+            const move = this.canMove(isWhite, targetX, targetY);
+            if (move.can) {
+                availableMoves.push([targetX, targetY]);
+            }
+            if (!move.can || move.type === 'capture') {
                 break;
             }
         }
         for (let i = x - 1, j = y + 1; i >= 0 && j < 8; i--, j++) {
-            if (!this.board[i][j]) {
-                availableMoves.push([i, j]);
-            } else {
+            const targetX = i, targetY = j;
+            const move = this.canMove(isWhite, targetX, targetY);
+            if (move.can) {
+                availableMoves.push([targetX, targetY]);
+            }
+            if (!move.can || move.type === 'capture') {
                 break;
             }
         }
@@ -274,6 +299,13 @@ class Chess {
         }
 
         return availableMoves;
+    }
+
+    canMove(isWhite, x, y) {
+        return {
+            can: !this.board[x][y] || isWhite !== this.board[x][y].isWhite,
+            type: (this.board[x][y] && isWhite !== this.board[x][y].isWhite) ? 'capture' : 'move'
+        }
     }
 }
 
