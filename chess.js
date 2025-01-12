@@ -335,6 +335,70 @@ class Chess {
             type: (this.board[x][y] && isWhite !== this.board[x][y].isWhite) ? 'capture' : 'move'
         }
     }
+
+    makeMove(moveFrom, moveTo) {
+        const piece = this.board[moveFrom.file][moveFrom.rank];
+        if (!piece || piece.isWhite !== this.isWhiteToMove) {
+            return;
+        }
+        const targetPiece = this.board[moveTo.file][moveTo.rank];
+        if (targetPiece && targetPiece.constructor.name === 'Rook') {
+            const rookInitialRank = targetPiece.isWhite ? 7 : 0;
+            if (moveTo.file === 0 && rookInitialRank === moveTo.rank) {
+                this.cOOO[+targetPiece.isWhite] = false;
+            }
+            if (moveTo.file === 7 && rookInitialRank === moveTo.rank) {
+                this.cOO[+targetPiece.isWhite] = false;
+            }
+        }
+        this.board[moveFrom.file][moveFrom.rank] = null;
+        this.board[moveTo.file][moveTo.rank] = piece;
+
+        const pieceClass = piece.constructor.name;
+
+        let castling = false;
+
+        if (pieceClass === 'King' && moveFrom.file === 4 && moveTo.file === 6) {
+            this.board[5][moveTo.rank] = this.board[7][moveTo.rank];
+            this.board[7][moveTo.rank] = null;
+            castling = true;
+        }
+        if (pieceClass === 'King' && moveFrom.file === 4 && moveTo.file === 2) {
+            this.board[3][moveTo.rank] = this.board[0][moveTo.rank];
+            this.board[0][moveTo.rank] = null;
+            castling = true;
+        }
+        if (castling) {
+            this.cOO[+piece.isWhite] = false;
+            this.cOOO[+piece.isWhite] = false;
+        }
+
+        if (pieceClass === 'King') {
+            this.cOOO[+piece.isWhite] = false;
+            this.cOO[+piece.isWhite] = false;
+        }
+        if (pieceClass === 'Rook') {
+            if (moveFrom.file === 0) {
+                this.cOOO[+piece.isWhite] = false;
+            }
+            if (moveFrom.file === 7) {
+                this.cOO[+piece.isWhite] = false;
+            }
+        }
+        if (this.enPassant && moveTo.file === this.enPassant[0] && moveTo.rank === this.enPassant[1]) {
+            this.board[moveTo.file][moveFrom.rank] = null;
+        }
+
+        this.enPassant = null;
+        if (pieceClass === 'Pawn') {
+            if (Math.abs(moveFrom.rank - moveTo.rank) === 2) {
+                this.enPassant = [moveFrom.file, (moveFrom.rank + moveTo.rank) / 2]
+                console.log(this.enPassant)
+            }
+        }
+
+        this.isWhiteToMove = !this.isWhiteToMove;
+    }
 }
 
 module.exports = {

@@ -52,7 +52,10 @@ nodegames.newGame(function (game) {
     game.on('close', function () {
         process.exit(0);
     });
-    let possibleMoves = [];
+    let availableMoves = [];
+
+    let isMoveInProgress = false;
+    let moveFrom = null;
 
     game.on("mouseclick", function (event) {
         //"event" object contains
@@ -60,7 +63,35 @@ nodegames.newGame(function (game) {
         const x = Math.floor(event.x / 100); //x position of mouse click
         const y = Math.floor(event.y / 100); //y position of mouse click
         console.log("Mouse button pressed: " + button + " at " + x + ", " + y)
-        possibleMoves = chess.getAvailableMovesForPiece([x,y])
+        if (!isMoveInProgress) {
+            availableMoves = chess.getAvailableMovesForPiece([x, y]);
+            if (availableMoves.length > 0) {
+                isMoveInProgress = true;
+                moveFrom = {file: x, rank: y};
+            }
+        } else {
+            // if move is possible
+            let movePossible = false;
+            availableMoves = chess.getAvailableMovesForPiece([moveFrom.file, moveFrom.rank]);
+            for (const availableMove of availableMoves) {
+                if (availableMove[0] === x && availableMove[1] === y) {
+                    movePossible = true;
+                    break;
+                }
+            }
+            if (movePossible) {
+                availableMoves = [];
+                chess.makeMove(moveFrom, {file: x, rank: y});
+                isMoveInProgress = false;
+                moveFrom = null;
+            } else {
+                availableMoves = chess.getAvailableMovesForPiece([x, y]);
+                if (availableMoves.length > 0) {
+                    isMoveInProgress = true;
+                    moveFrom = {file: x, rank: y};
+                }
+            }
+        }
         render()
     })
 
@@ -72,7 +103,7 @@ nodegames.newGame(function (game) {
                 if ('undefined' === typeof piece) {
                     continue;
                 }
-                if ('null' === piece) {
+                if (null === piece) {
                     continue;
                 }
                 const color = piece.isWhite ? 'w' : 'b';
@@ -82,7 +113,7 @@ nodegames.newGame(function (game) {
             }
         }
 
-        for (const possibleMove of possibleMoves) {
+        for (const possibleMove of availableMoves) {
             game.circle(possibleMove[0] * 100 + 50, possibleMove[1] * 100 + 50, 15, [0, 200, 0]);
         }
 
@@ -95,5 +126,5 @@ nodegames.newGame(function (game) {
 // const initialPosition = "rnbqkbnr/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 1 2";
 // const initialPosition = "r3k2r/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/R3K2R b KQkq - 1 2";
 // const initialPosition = "8/3R1B2/2p5/1Q1b4/3KP3/2N5/8/8 b - - 1 2";
-const initialPosition = "rnb1kbnr/p2p1ppp/1p6/2p1pP2/4P2q/6P1/PPPP3P/RNBQKBNR w KQkq - 1 5";
+const initialPosition = "4k2r/ppp1qNpp/2n4r/2bpp3/3Bn1Q1/PBNP3P/1PP2Pb1/R3K2R w KQk - 1 15";
 const chess = new Chess(initialPosition);
