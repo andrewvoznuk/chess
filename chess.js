@@ -291,6 +291,13 @@ class Chess {
 
         const direction = piece.isWhite ? -1 : 1;
 
+        if (x >= 0 && this.board[x - 1][y + direction] && this.board[x - 1][y + direction].isWhite !== piece.isWhite) {
+            availableMoves.push([x - 1, y + direction]);
+        }
+        if (x < 8 && this.board[x + 1][y + direction] && this.board[x + 1][y + direction].isWhite !== piece.isWhite) {
+            availableMoves.push([x + 1, y + direction]);
+        }
+
         if (!this.board[x][y + direction]) {
             availableMoves.push([x, y + direction]);
         } else {
