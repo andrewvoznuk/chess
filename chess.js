@@ -114,6 +114,8 @@ class Chess {
                 return this.getAvailableMovesForKnight(square);
             case 'King':
                 return this.getAvailableMovesForKing(square);
+            case 'Pawn':
+                return this.getAvailableMovesForPawn(square);
         }
 
 
@@ -230,6 +232,27 @@ class Chess {
                     availableMoves.push([i, j]);
                 }
             }
+        }
+
+        return availableMoves;
+    }
+
+    getAvailableMovesForPawn(square) {
+        const availableMoves = [];
+        const x = square[0], y = square[1];
+        const piece = this.board[square[0]][square[1]];
+
+        const direction = piece.isWhite ? -1 : 1;
+
+        if (!this.board[x][y + direction]) {
+            availableMoves.push([x, y + direction]);
+        } else {
+            return availableMoves;
+        }
+
+        const isFirstRank = (piece.isWhite && y === 6) || (!piece.isWhite && y === 1);
+        if (isFirstRank && !this.board[x][y + 2 * direction]) {
+            availableMoves.push([x, y + 2 * direction]);
         }
 
         return availableMoves;
