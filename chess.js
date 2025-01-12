@@ -72,7 +72,6 @@ class Chess {
                 case '6':
                 case '7':
                 case '8':
-                case '9':
                     file += parseInt(char);
                     break;
             }
@@ -91,6 +90,16 @@ class Chess {
         this.cOOO[1] = castlings.includes('Q');
         this.cOO[0] = castlings.includes('k');
         this.cOOO[0] = castlings.includes('q');
+
+        const enPassant = fenParts[3];
+        this.enPassant = null;
+        if (enPassant !== '-') {
+            this.enPassant = this.stringToSquare(enPassant);
+        }
+    }
+
+    stringToSquare(str) {
+        return [fileMap[str[0]], (9 - str[1]) - 1]
     }
 
     placePiece(square, piece) {
@@ -291,6 +300,14 @@ class Chess {
 
         const direction = piece.isWhite ? -1 : 1;
 
+        // en passant
+        if (this.enPassant && this.enPassant[0] === x - 1 && this.board[x - 1][y].isWhite !== piece.isWhite) {
+            availableMoves.push([x - 1, y + direction]);
+        }
+        if (this.enPassant && this.enPassant[0] === x + 1 && this.board[x + 1][y].isWhite !== piece.isWhite) {
+            availableMoves.push([x + 1, y + direction]);
+        }
+        // regular capture
         if (x >= 0 && this.board[x - 1][y + direction] && this.board[x - 1][y + direction].isWhite !== piece.isWhite) {
             availableMoves.push([x - 1, y + direction]);
         }
