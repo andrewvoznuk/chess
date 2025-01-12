@@ -95,5 +95,5 @@ nodegames.newGame(function (game) {
 // const initialPosition = "rnbqkbnr/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 1 2";
 // const initialPosition = "r3k2r/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/R3K2R b KQkq - 1 2";
 // const initialPosition = "8/3R1B2/2p5/1Q1b4/3KP3/2N5/8/8 b - - 1 2";
-const initialPosition = "rnbqkbnr/p2ppp1p/1p6/2p2Pp1/4P3/8/PPPP2PP/RNBQKBNR w KQkq g6 0 4";
+const initialPosition = "rnb1kbnr/p2p1ppp/1p6/2p1pP2/4P2q/6P1/PPPP3P/RNBQKBNR w KQkq - 1 5";
 const chess = new Chess(initialPosition);

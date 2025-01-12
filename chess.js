@@ -308,10 +308,10 @@ class Chess {
             availableMoves.push([x + 1, y + direction]);
         }
         // regular capture
-        if (x >= 0 && this.board[x - 1][y + direction] && this.board[x - 1][y + direction].isWhite !== piece.isWhite) {
+        if (x > 0 && this.board[x - 1][y + direction] && this.board[x - 1][y + direction].isWhite !== piece.isWhite) {
             availableMoves.push([x - 1, y + direction]);
         }
-        if (x < 8 && this.board[x + 1][y + direction] && this.board[x + 1][y + direction].isWhite !== piece.isWhite) {
+        if (x < 7 && this.board[x + 1][y + direction] && this.board[x + 1][y + direction].isWhite !== piece.isWhite) {
             availableMoves.push([x + 1, y + direction]);
         }
 
