@@ -201,10 +201,10 @@ class Chess {
             for (let yDirection = 0; yDirection < 2; yDirection++) {
                 const xMultiplier = xDirection ? 1 : -1;
                 const yMultiplier = yDirection ? 1 : -1;
-                if (!this.board[x + 2 * xMultiplier][y + 1 * yMultiplier]) {
+                if ((x + 2 * xMultiplier) >= 0 && (x + 2 * xMultiplier) < 8 && (y + 1 * yMultiplier) >= 0 && (y + 1 * yMultiplier) < 8 && !this.board[x + 2 * xMultiplier][y + 1 * yMultiplier]) {
                     availableMoves.push([x + 2 * xMultiplier, y + 1 * yMultiplier]);
                 }
-                if (!this.board[x + 1 * xMultiplier][y + 2 * yMultiplier]) {
+                if ((x + 1 * xMultiplier) >= 0 && (x + 1 * xMultiplier) < 8 && (y + 2 * yMultiplier) >= 0 && (y + 2 * yMultiplier) < 8 && !this.board[x + 1 * xMultiplier][y + 2 * yMultiplier]) {
                     availableMoves.push([x + 1 * xMultiplier, y + 2 * yMultiplier]);
                 }
             }
