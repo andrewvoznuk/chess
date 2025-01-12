@@ -103,7 +103,6 @@ class Chess {
         }
         const pieceClass = piece.constructor.name;
 
-        console.log(pieceClass);
         switch (pieceClass) {
             case 'Queen':
                 return this.getAvailableMovesForQueen(square);
@@ -113,6 +112,8 @@ class Chess {
                 return this.getAvailableMovesForBishop(square);
             case 'Knight':
                 return this.getAvailableMovesForKnight(square);
+            case 'King':
+                return this.getAvailableMovesForKing(square);
         }
 
 
@@ -217,6 +218,21 @@ class Chess {
         const b = this.getAvailableMovesForBishop(square);
 
         return r.concat(b)
+    }
+
+    getAvailableMovesForKing(square) {
+        const availableMoves = [];
+        const x = square[0], y = square[1];
+
+        for (let i = Math.max(x - 1, 0); i <= Math.min(x + 1, 7); i++) {
+            for (let j = Math.max(y - 1, 0); j <= Math.min(y + 1, 7); j++) {
+                if (!this.board[i][j]) {
+                    availableMoves.push([i, j]);
+                }
+            }
+        }
+
+        return availableMoves;
     }
 }
 
