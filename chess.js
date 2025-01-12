@@ -99,11 +99,10 @@ class Chess {
 
         const piece = this.board[square[0]][square[1]];
 
-        if (this.isWhiteToMove !== piece.isWhite) return availableMoves;
-
-        if (!piece) {
+        if (!piece || this.isWhiteToMove !== piece.isWhite) {
             return availableMoves;
         }
+
         const pieceClass = piece.constructor.name;
 
         switch (pieceClass) {
