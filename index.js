@@ -13,10 +13,6 @@ const shortMap = {
     King: 'k',
 }
 
-const fileMap = {
-    a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7
-}
-
 const board = fs.readFileSync("./board.png");
 const bb = fs.readFileSync("./pieces/bb.png");
 const wb = fs.readFileSync("./pieces/wb.png");
@@ -98,6 +94,6 @@ nodegames.newGame(function (game) {
 
 // const initialPosition = "rnbqkbnr/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/RNBQK2R w KQkq - 1 2";
 // const initialPosition = "r3k2r/pp2pppp/8/2pp4/4P3/3B1N2/PPPP1PPP/R3K2R b KQkq - 1 2";
-const initialPosition = "8/3R1B2/8/1Q1b4/8/2N5/8/8 w KQkq - 1 2";
+const initialPosition = "8/3R1B2/8/1Q1b4/3K4/2N5/8/8 w - - 1 2";
 // const initialPosition = "K3RK1K/8/8/2QRB3/4N3/8/8/K6K w KQkq - 1 2";
 const chess = new Chess(initialPosition);

@@ -24,6 +24,9 @@ class Queen extends Piece {
 class King extends Piece {
 }
 
+const fileMap = {
+    a: 0, b: 1, c: 2, d: 3, e: 4, f: 5, g: 6, h: 7
+}
 
 class Chess {
     board = new Array(8);
@@ -265,7 +268,7 @@ class Chess {
 
         for (let i = Math.max(x - 1, 0); i <= Math.min(x + 1, 7); i++) {
             for (let j = Math.max(y - 1, 0); j <= Math.min(y + 1, 7); j++) {
-                if (!this.board[i][j]) {
+                if (this.canMove(piece.isWhite, i, j).can) {
                     availableMoves.push([i, j]);
                 }
             }
